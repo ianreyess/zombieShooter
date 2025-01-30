@@ -27,5 +27,6 @@ weapon.SetParent(_gunPivot);
 weapon.localPosition = Vector3.zero;
 weapon.localRotation = quaternion.identity;
 _weapon = weapon.GetComponent<Gun>();
+_weapon.PickUpWeapon();
     }
 }
