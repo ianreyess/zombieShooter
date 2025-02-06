@@ -2,7 +2,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class GetWeppon : MonoBehaviour
+public class GetWeapon : MonoBehaviour
 {
     private Gun _weapon;
     public Gun Weapon
@@ -11,6 +11,13 @@ public class GetWeppon : MonoBehaviour
     }
     [SerializeField]
     private Transform _gunPivot;
+    private UIController _uiController;
+
+    private void Start()
+    {
+        _uiController = gameObject.GetComponent<UIController>();
+        _uiController.showBulletsUI(false);
+    }
 
     void OnTriggerEnter(Collider other)
     {
@@ -27,6 +34,14 @@ weapon.SetParent(_gunPivot);
 weapon.localPosition = Vector3.zero;
 weapon.localRotation = quaternion.identity;
 _weapon = weapon.GetComponent<Gun>();
-_weapon.PickUpWeapon();
+_weapon.PickUpWeapon(this);
+_uiController.showBulletsUI(true);
+    }
+    public void RemoveWeapon()
+    {
+        Destroy(_weapon.gameObject);
+        _weapon = null;
+        gameObject.GetComponent<UIController>().showBulletsUI(false);
+        _uiController.showBulletsUI(false);
     }
 }
