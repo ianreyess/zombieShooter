@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         objective = GameObject.FindGameObjectWithTag(enemyToLook).transform;
-        health = GetComponent<Health>();
+        health = GetComponent<Health>();       
     }
     private void Update()
     {
@@ -31,10 +31,12 @@ public class Enemy : MonoBehaviour
         {
             health.TakeDamage(collision.gameObject.GetComponent<Bullet>().Damage);
             Destroy(collision.gameObject);
+            SoundManager.instance.Play("Monster");
         }
     }
     public void Die()
     {
         Destroy(gameObject);
+        SoundManager.instance.Play("Die");
     }
 }
